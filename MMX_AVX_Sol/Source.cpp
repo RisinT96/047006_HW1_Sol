@@ -2,6 +2,7 @@
 #include <random>
 #include <immintrin.h>
 #include <intrin.h>
+#include <iomanip>
 
 #define VECTOR_SIZE 1024
 
@@ -48,17 +49,27 @@ int main() {
 
 	for (int i = 0; i < VECTOR_SIZE; i += 8)
 	{
-		ymmA = _mm256_load_ps(A);
-		ymmB = _mm256_load_ps(B);
+		ymmA = _mm256_load_ps(A+i);
+		ymmB = _mm256_load_ps(B+i);
 		ymmC = _mm256_fmadd_ps(ymmA, ymmB, ymmA);
 
-		_mm256_store_ps(C3, ymmC);
+		_mm256_store_ps(C3+i, ymmC);
 	}
-
+	std::cout << std::setprecision(15) << std::fixed;
 	for (int i = 0; i < VECTOR_SIZE; i++)
 	{
-		std::cout << C1[i] << " " << C2[i] << " " << C3[i] << std::endl;
-
+		if (C1[i] != C2[i])
+		{
+			std::cout << "C1[" << i << "]: " << C1[i] << "	but C2[" << i << "]: " << C2[i] << std::endl;
+		}
+		if (C2[i] != C3[i])
+		{
+			std::cout << "C2[" << i << "]: " << C2[i] << "	but C3[" << i << "]: " << C3[i] << std::endl;
+		}
+		if (C3[i] != C1[i])
+		{
+			std::cout << "C3[" << i << "]: " << C3[i] << "	but C1[" << i << "]: " << C1[i] << std::endl;
+		}
 	}
 
 	system("pause");
