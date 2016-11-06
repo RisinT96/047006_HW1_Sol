@@ -1,10 +1,11 @@
 #include <iostream>
 #include <random>
-#include <immintrin.h>
-#include <intrin.h>
 #include <iomanip>
 #include <string>
 #include <chrono>
+#include <immintrin.h>
+
+#include "Detector.h"
 
 #define VECTOR_SIZE 1024
 #define LOOPS 100000
