@@ -21,17 +21,7 @@ Detector::Detector()
 	}
 	if (nIds >= 0x00000007) {
 		cpuid(info, 0x00000007);
-		HW_AVX2 = (info[1] & ((int)1 << 5)) != 0;
-
 		HW_AVX512F = (info[1] & ((int)1 << 16)) != 0;
-		HW_AVX512CD = (info[1] & ((int)1 << 28)) != 0;
-		HW_AVX512PF = (info[1] & ((int)1 << 26)) != 0;
-		HW_AVX512ER = (info[1] & ((int)1 << 27)) != 0;
-		HW_AVX512VL = (info[1] & ((int)1 << 31)) != 0;
-		HW_AVX512BW = (info[1] & ((int)1 << 30)) != 0;
-		HW_AVX512DQ = (info[1] & ((int)1 << 17)) != 0;
-		HW_AVX512IFMA = (info[1] & ((int)1 << 21)) != 0;
-		HW_AVX512VBMI = (info[2] & ((int)1 << 1)) != 0;
 	}
 	if (nExIds >= 0x80000001) {
 		cpuid(info, 0x80000001);
